@@ -1,13 +1,14 @@
 import './App.css'
 import { useEffect, useState } from 'react'
 import { Container } from 'semantic-ui-react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllEntries } from './actions/entries.actions'
 import MainHeader from './components/MainHeader'
 import NewEntryForm from './components/NewEntryForm'
 import DisplayBalance from './components/DisplayBalance'
 import DisplayBalances from './components/DisplayBalances'
 import EntryLines from './components/EntryLines';
 import ModalEdit from './components/ModalEdit'
-import { useSelector } from 'react-redux'
 
 function App() {
   const [incomeTotal, setIncomeTotal] = useState(0)
@@ -37,6 +38,11 @@ function App() {
     setIncomeTotal(totalIncomes)
     setExpenseTotal(totalExpenses)
   }, [entries])
+
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getAllEntries())
+  }, [dispatch])
 
   return (
     <Container>
